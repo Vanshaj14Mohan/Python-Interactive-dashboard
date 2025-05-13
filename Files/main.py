@@ -77,7 +77,8 @@ elif city:
 else:
     filtered_df = df3[df3["Region"].isin(region) & df3[df3["State"].isin(state) & df3["City"].isin(city)]]
 
-
+#Now let's create a column chart for category and region
+category_df = filtered_df.groupby(by = ["Category"], as_index= False)["Sales"].sum()
 
 
 
