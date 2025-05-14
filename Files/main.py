@@ -1,6 +1,6 @@
 #Importing Libraries
 import streamlit as st
-import plotly.express as ex
+import plotly.express as px
 import pandas as pd
 import os
 import warnings
@@ -65,20 +65,38 @@ if not region and not state and not city:
 elif not state and not city:
     filtered_df = df[df["Region"].isin(region)]
 elif not region and not city:
-    fileterd_df = df[df["State"].isin(state)]
+    filtered_df = df[df["State"].isin(state)]
 elif state and city:
-    fileterd_df = df3[df["State"].isin(state) & df3["City"].isin(city)]
+    filtered_df = df3[df["State"].isin(state) & df3["City"].isin(city)]
 elif region and city:
-    fileterd_df = df3[df["State"].isin(region) & df3["City"].isin(city)]
+    filtered_df = df3[df["Region"].isin(region) & df3["City"].isin(city)]
 elif region and state:
-    fileterd_df = df3[df["State"].isin(region) & df3["City"].isin(state)]
+    filtered_df = df3[df["Region"].isin(region) & df3["State"].isin(state)]
 elif city:
-    fileterd_df = df3[df3["City"].isnin(city)]
+    filtered_df = df3[df3["City"].isnin(city)]
 else:
     filtered_df = df3[df3["Region"].isin(region) & df3[df3["State"].isin(state) & df3["City"].isin(city)]]
 
 #Now let's create a column chart for category and region
 category_df = filtered_df.groupby(by = ["Category"], as_index= False)["Sales"].sum()
+
+with col1:
+    st.subheader("Category Wise Sales")
+    fig = px.bar(category_df, x = "Category", y = "Sales", text = ['${:,.2f}'.format(x) for x in category_df["Sales"]], template="seaborn")
+    st.plotly_chart(fig,use_container_width=True, height=200)
+# with col1:
+#     st.subheader("category wise sales")
+#     fig = px.bar(category_df, 
+#                  x="Category", 
+#                  y="Sales", 
+#                  text=['${:,.2f}'.format(x) for x in category_df["Sales"]], 
+#                  template="seaborn")
+#     st.plotly_chart(fig, use_container_width=True, height=200)
+with col2:
+    st.subheader("Region Wise Sales")
+    fig = px.pie(filtered_df, values="Sales", names = "Region", hole= 0.5)
+    fig.update_traces(text = filtered_df["Region"], textposition = "outside")
+    st.plotly_chart(fig, use_container_width=True)
 
 
 
