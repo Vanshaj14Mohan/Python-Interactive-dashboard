@@ -98,7 +98,8 @@ with col2:
     fig.update_traces(text = filtered_df["Region"], textposition = "outside")
     st.plotly_chart(fig, use_container_width=True)
 
-# If we want to see and download the data based on these charts
+# Now If we want to see and download the data based on these charts
+# First Category wise sales
 cl1, cl2 = st.columns(2)
 with cl1:
     with st.expander("Category_ViewData"):
@@ -106,6 +107,7 @@ with cl1:
         csv = category_df.to_csv(index = False).encode("utf-8")
         st.download_button("Download the Data", data = csv, file_name = "Category.csv", mime = "text/csv", help = "Click here to download data as a CSV file")
 
+# Second Region wise sales
 with cl2:
     with st.expander("Region_ViewData"):
         # region = filtered_df.groupby(by = ["Region"], as_index= False)["Sales"].sum()
