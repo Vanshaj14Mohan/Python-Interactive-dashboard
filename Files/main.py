@@ -136,3 +136,4 @@ fig3 = px.treemap(filtered_df, path=["Region", "Category", "Sub-Category"], valu
 fig3.update_layout(width = 850, height = 700)
 st.plotly_chart(fig3, use_container_width=True)
 
+#Now Creating Segment wise and Category wise sales..
