@@ -116,5 +116,12 @@ with cl2:
         csv = region.to_csv(index = False).encode("utf-8")
         st.download_button("Download the Data", data = csv, file_name = "Region.csv", mime = "text/csv", help = "Click here to download data as a CSV file")
 
+#Now visualizing the data using time series analysis based on month year.
+filtered_df["month_year"] = filtered_df["Order Date"].dt.to_period("M")
+st.subheader("Time Series Analysis")
+
+linechart = pd.DataFrame(filtered_df.groupby(filtered_df["month_year"].dt.strftime("%Y : %b"))["Sales"].sum()).reset_index()
+fig2 = px.line(linechart, x = "month_year", y = "Sales", labels= {"Sales": "Amount"}, height = 550, width=1050, template="gridon")
+st.plotly_chart(fig2, use_container_width=True)
 
 
