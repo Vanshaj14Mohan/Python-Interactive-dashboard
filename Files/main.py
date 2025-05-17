@@ -130,3 +130,9 @@ with st.expander("View Data of TimeSeries"):
     csv = linechart.to_csv(index=False).encode("utf-8")
     st.download_button("Download Data", data = csv, file_name="TimeSeries.csv", mime="text/csv")
 
+#Create a tree map based on Region, Category and Sub-Category
+st.subheader("A Hierarchical view of Sales using Tree Map")
+fig3 = px.treemap(filtered_df, path=["Region", "Category", "Sub-Category"], values= "Sales", hover_data= ["Sales"], color= "Sub-Category")
+fig3.update_layout(width = 850, height = 700)
+st.plotly_chart(fig3, use_container_width=True)
+
