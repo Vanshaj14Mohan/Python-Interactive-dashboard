@@ -151,4 +151,7 @@ with st.expander("Summary Table"):
     fig = ff.create_table(df_sample, colorscale = "Cividis")
     st.plotly_chart(fig, use_container_width=True)
 
+    st.markdown("Month Wise Sub-Category Table")
+    filtered_df["month"] = filtered_df["Order Data"].dt.month_name()
+
 
