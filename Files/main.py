@@ -153,5 +153,7 @@ with st.expander("Summary Table"):
 
     st.markdown("Month Wise Sub-Category Table")
     filtered_df["month"] = filtered_df["Order Data"].dt.month_name()
+    sub_category_year = pd.pivot_table(data = filtered_df, values = "Sales", index = ["Sub-Category"], columns = "month")
+    st.write(sub_category_year.style.background_gradient(cmap="Blues"))
 
 
