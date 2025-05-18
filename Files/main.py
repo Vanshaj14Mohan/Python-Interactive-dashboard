@@ -84,14 +84,7 @@ with col1:
     st.subheader("Category Wise Sales")
     fig = px.bar(category_df, x = "Category", y = "Sales", text = ['${:,.2f}'.format(x) for x in category_df["Sales"]], template="seaborn")
     st.plotly_chart(fig,use_container_width=True, height=200)
-# with col1:
-#     st.subheader("category wise sales")
-#     fig = px.bar(category_df, 
-#                  x="Category", 
-#                  y="Sales", 
-#                  text=['${:,.2f}'.format(x) for x in category_df["Sales"]], 
-#                  template="seaborn")
-#     st.plotly_chart(fig, use_container_width=True, height=200)
+
 with col2:
     st.subheader("Region Wise Sales")
     fig = px.pie(filtered_df, values="Sales", names = "Region", hole= 0.5)
@@ -149,4 +142,13 @@ with chart2:
     fig = px.pie(filtered_df, values="Sales", names = "Category", template= "gridon")
     fig.update_traces(text = filtered_df["Category"], textposition = "inside")
     st.plotly_chart(fig, use_container_width=True)
+
+#How we can show some specific data in table format using streamlit
+import plotly.figure_factory as ff #using figure_factory we will create a table
+st.subheader(":point_right: Month Wise Sub-Category sales summary")
+with st.expander("Summary Table"):
+    df_sample = df [0:5][["Region", "State", "City", "Category", "Sales", "Profit", "Quantity"]]
+    fig = ff.create_table(df_sample, colorscale = "Cividis")
+    st.plotly_chart(fig, use_container_width=True)
+
 
