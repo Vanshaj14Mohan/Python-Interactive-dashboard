@@ -137,3 +137,16 @@ fig3.update_layout(width = 850, height = 700)
 st.plotly_chart(fig3, use_container_width=True)
 
 #Now Creating Segment wise and Category wise sales..
+chart1, chart2 = st.columns((2)) # Creating two columns
+with chart1:
+    st.subheader("Segment Wise Sales")
+    fig = px.pie(filtered_df, values="Sales", names = "Segment", template= "plotly_dark")
+    fig.update_traces(text = filtered_df["Segment"], textposition = "inside")
+    st.plotly_chart(fig, use_container_width=True)
+
+with chart2:
+    st.subheader("Category Wise Sales")
+    fig = px.pie(filtered_df, values="Sales", names = "Category", template= "gridon")
+    fig.update_traces(text = filtered_df["Category"], textposition = "inside")
+    st.plotly_chart(fig, use_container_width=True)
+
