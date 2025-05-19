@@ -54,10 +54,6 @@ else:
 
 #For City
 city = st.sidebar.multiselect("Pick your City", df3["City"].unique())
-# if not city:
-#     df4 = df3.copy()
-# else:
-#     df4 = df3[df3["City"].isin(city)]
 
 # Filter data based on Region, State, City
 if not region and not state and not city:
