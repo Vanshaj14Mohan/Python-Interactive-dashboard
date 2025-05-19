@@ -157,5 +157,30 @@ with st.expander("Summary Table"):
     st.write(sub_category_year.style.background_gradient(cmap="Blues"))
 
 #Now Creating a Scatter Plot for showing a relationship between sales and profit.
+# data1 = px.scatter(filtered_df, x="Sales", y = "Profit", size = "Quantity")
+# data1["layout"].update(title="Relationship between Sales and Profits using Scatter Plot", titlefont = dict(size=20), xaxis = dict(title="Sales", titlefont = dict(size=19)), yaxis = dict(title="Profit", titlefont= dict(size = 19)))
+# st.plotly_chart(data1, use_container_width=True)
 
+# data1 = px.scatter(filtered_df, x = "Sales", y = "Profit", size = "Quantity")
+# data1["layout"].update(title = "Relationship between Sales and Profits using Scatter Plot", titlefont = dict(size=20), 
+#                        xaxis = dict(title="Sales", titlefont = dict(size=19)), yaxis= dict(title="Profit", titlefont = dict(size =19)))
+# data1["layout"].update(
+#     title="Relationship between Sales and Profits using Scatter Plot",
+#     titlefont=dict(size=20),
+#     xaxis=dict(title="Sales", titlefont=dict(size=19)),
+#     yaxis=dict(title="Profit", titlefont=dict(size=19))  # Now properly closed
+# )  # Closing parenthesis for `update()`
+# st.plotly_chart(data1, use_container_width=True)
 
+data1 = px.scatter(filtered_df, x = "Sales", y = "Profit", size = "Quantity")
+data1.update_layout(title="Relationship between Sales and Profit using Scatter Plot", title_font= dict(size=20), 
+                       xaxis = dict(title ="Sales", title_font = dict(size=19)), yaxis = dict(title="Profit", title_font=dict(size=19)))
+st.plotly_chart(data1, use_container_width=True)
+
+#Now if we want to download the entire dataset of specific portions
+with st.expander("View Data"):
+    st.write(filtered_df.iloc[:500,1:20:2].style.background_gradient(cmap="Oranges"))
+
+#And if we wanna download the entire dataset
+csv = df.to_csv(index=False).encode("utf-8")
+st.download_button("Download Data", data = csv, file_name= "Data.csv", mime="text/csv")
