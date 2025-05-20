@@ -167,21 +167,48 @@ st.download_button("Download Data", data = csv, file_name= "Data.csv", mime="tex
 
 # NEW GRAPHS START FROM HERE
 # Monthly Sales Heatmap
-st.subheader("Monthly Sales Heatmap")
+# ========== ADDED VISUALIZATIONS START HERE ==========
+
+# Visualization 1: Sales Distribution by Ship Mode (Box Plot)
+st.subheader("📦 Sales Distribution by Ship Mode")
+fig_shipmode = px.box(filtered_df, x="Ship Mode", y="Sales", color="Ship Mode", 
+                     notched=True, template="plotly_white",
+                     title="Distribution of Sales Across Different Shipping Methods")
+fig_shipmode.update_layout(height=500)
+st.plotly_chart(fig_shipmode, use_container_width=True)
+
+# Visualization 2: Sales vs Profit Correlation by Category
+st.subheader("📊 Sales-Profit Relationship by Category")
+corr_df = filtered_df.groupby('Category')[['Sales', 'Profit']].corr().unstack().iloc[:, 1]
+corr_df = corr_df.reset_index()
+corr_df.columns = ['Category', 'Correlation']
+
+fig_corr = px.bar(corr_df, x='Category', y='Correlation', color='Correlation',
+                 color_continuous_scale='RdYlGn', range_color=[-1, 1],
+                 title='How Sales and Profit Correlate Across Categories',
+                 text_auto='.2f')
+fig_corr.update_traces(textposition='outside')
+st.plotly_chart(fig_corr, use_container_width=True)
+
+# Visualization 3: Monthly Sales Heatmap
+st.subheader("📅 Monthly Sales Heatmap")
 filtered_df['Month'] = filtered_df['Order Date'].dt.month_name()
 filtered_df['Year'] = filtered_df['Order Date'].dt.year
 
-heatmap_data = filtered_df.groupby(['Year', 'Month'])['Sales'].sum().unstack()
+# Get months in order and only those present in data
 months_order = ['January', 'February', 'March', 'April', 'May', 'June', 
                'July', 'August', 'September', 'October', 'November', 'December']
-heatmap_data = heatmap_data[months_order]
+existing_months = [m for m in months_order if m in filtered_df['Month'].unique()]
 
-fig_heatmap = px.imshow(heatmap_data, 
+heatmap_data = filtered_df.groupby(['Year', 'Month'])['Sales'].sum().unstack()
+heatmap_data = heatmap_data[existing_months]  # Only include months with data
+
+fig_heatmap = px.imshow(heatmap_data,
                        labels=dict(x="Month", y="Year", color="Sales"),
+                       title="Monthly Sales Patterns Over Years",
                        x=heatmap_data.columns,
                        y=heatmap_data.index,
                        color_continuous_scale='Viridis',
                        aspect="auto")
 fig_heatmap.update_layout(height=500)
 st.plotly_chart(fig_heatmap, use_container_width=True)
-
