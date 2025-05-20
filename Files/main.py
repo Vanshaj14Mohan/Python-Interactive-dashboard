@@ -164,3 +164,24 @@ with st.expander("View Data"):
 #And if we wanna download the entire dataset
 csv = df.to_csv(index=False).encode("utf-8")
 st.download_button("Download Data", data = csv, file_name= "Data.csv", mime="text/csv")
+
+# NEW GRAPHS START FROM HERE
+# Monthly Sales Heatmap
+st.subheader("Monthly Sales Heatmap")
+filtered_df['Month'] = filtered_df['Order Date'].dt.month_name()
+filtered_df['Year'] = filtered_df['Order Date'].dt.year
+
+heatmap_data = filtered_df.groupby(['Year', 'Month'])['Sales'].sum().unstack()
+months_order = ['January', 'February', 'March', 'April', 'May', 'June', 
+               'July', 'August', 'September', 'October', 'November', 'December']
+heatmap_data = heatmap_data[months_order]
+
+fig_heatmap = px.imshow(heatmap_data, 
+                       labels=dict(x="Month", y="Year", color="Sales"),
+                       x=heatmap_data.columns,
+                       y=heatmap_data.index,
+                       color_continuous_scale='Viridis',
+                       aspect="auto")
+fig_heatmap.update_layout(height=500)
+st.plotly_chart(fig_heatmap, use_container_width=True)
+
