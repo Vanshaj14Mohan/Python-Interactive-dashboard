@@ -165,10 +165,7 @@ with st.expander("View Data"):
 csv = df.to_csv(index=False).encode("utf-8")
 st.download_button("Download Data", data = csv, file_name= "Data.csv", mime="text/csv")
 
-# NEW GRAPHS START FROM HERE
-# Monthly Sales Heatmap
-# ========== ADDED VISUALIZATIONS START HERE ==========
-
+# NEW UPDATED GRAPHS START FROM HERE
 # Visualization 1: Sales Distribution by Ship Mode (Box Plot)
 st.subheader("📦 Sales Distribution by Ship Mode")
 fig_shipmode = px.box(filtered_df, x="Ship Mode", y="Sales", color="Ship Mode", 
