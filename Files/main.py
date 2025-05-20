@@ -202,7 +202,7 @@ fig_heatmap = px.imshow(heatmap_data,
 fig_heatmap.update_layout(height=500)
 st.plotly_chart(fig_heatmap, use_container_width=True)
 
-#Final part
+#Final part, Giving Download option
 #Now if we want to download the entire dataset of specific portions
 with st.expander("View Data"):
     st.write(filtered_df.iloc[:500,1:20:2].style.background_gradient(cmap="Oranges"))
