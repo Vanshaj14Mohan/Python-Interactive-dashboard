@@ -158,7 +158,7 @@ data1.update_layout(title="Relationship between Sales and Profit using Scatter P
 st.plotly_chart(data1, use_container_width=True)
 
 # NEW UPDATED GRAPHS START FROM HERE
-# Visualization 1: Sales Distribution by Ship Mode (Box Plot)
+#Sales Distribution by Ship Mode (Box Plot)
 st.subheader("📦 Sales Distribution by Ship Mode")
 fig_shipmode = px.box(filtered_df, x="Ship Mode", y="Sales", color="Ship Mode", 
                      notched=True, template="plotly_white",
@@ -166,7 +166,7 @@ fig_shipmode = px.box(filtered_df, x="Ship Mode", y="Sales", color="Ship Mode",
 fig_shipmode.update_layout(height=500)
 st.plotly_chart(fig_shipmode, use_container_width=True)
 
-# Visualization 2: Sales vs Profit Correlation by Category
+# Sales vs Profit Correlation by Category
 st.subheader("📊 Sales-Profit Relationship by Category")
 corr_df = filtered_df.groupby('Category')[['Sales', 'Profit']].corr().unstack().iloc[:, 1]
 corr_df = corr_df.reset_index()
@@ -179,7 +179,7 @@ fig_corr = px.bar(corr_df, x='Category', y='Correlation', color='Correlation',
 fig_corr.update_traces(textposition='outside')
 st.plotly_chart(fig_corr, use_container_width=True)
 
-# Visualization 3: Monthly Sales Heatmap
+#Monthly Sales Heatmap
 st.subheader("📅 Monthly Sales Heatmap")
 filtered_df['Month'] = filtered_df['Order Date'].dt.month_name()
 filtered_df['Year'] = filtered_df['Order Date'].dt.year
@@ -202,6 +202,7 @@ fig_heatmap = px.imshow(heatmap_data,
 fig_heatmap.update_layout(height=500)
 st.plotly_chart(fig_heatmap, use_container_width=True)
 
+#Final part
 #Now if we want to download the entire dataset of specific portions
 with st.expander("View Data"):
     st.write(filtered_df.iloc[:500,1:20:2].style.background_gradient(cmap="Oranges"))
