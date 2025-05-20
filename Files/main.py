@@ -157,14 +157,6 @@ data1.update_layout(title="Relationship between Sales and Profit using Scatter P
                        xaxis = dict(title ="Sales", title_font = dict(size=19)), yaxis = dict(title="Profit", title_font=dict(size=19)))
 st.plotly_chart(data1, use_container_width=True)
 
-#Now if we want to download the entire dataset of specific portions
-with st.expander("View Data"):
-    st.write(filtered_df.iloc[:500,1:20:2].style.background_gradient(cmap="Oranges"))
-
-#And if we wanna download the entire dataset
-csv = df.to_csv(index=False).encode("utf-8")
-st.download_button("Download Data", data = csv, file_name= "Data.csv", mime="text/csv")
-
 # NEW UPDATED GRAPHS START FROM HERE
 # Visualization 1: Sales Distribution by Ship Mode (Box Plot)
 st.subheader("📦 Sales Distribution by Ship Mode")
@@ -209,3 +201,11 @@ fig_heatmap = px.imshow(heatmap_data,
                        aspect="auto")
 fig_heatmap.update_layout(height=500)
 st.plotly_chart(fig_heatmap, use_container_width=True)
+
+#Now if we want to download the entire dataset of specific portions
+with st.expander("View Data"):
+    st.write(filtered_df.iloc[:500,1:20:2].style.background_gradient(cmap="Oranges"))
+
+#And if we wanna download the entire dataset
+csv = df.to_csv(index=False).encode("utf-8")
+st.download_button("Download Data", data = csv, file_name= "Data.csv", mime="text/csv")
