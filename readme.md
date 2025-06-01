@@ -1,5 +1,5 @@
 
-# 📊 Superstore Interactive Dashboard
+# 📊 SuperstoreViz an Interactive Dashboard
 
 An interactive web application built using **Streamlit** and **Plotly** to visualize and analyze sales data from a Superstore dataset. This dashboard allows users to upload their own Excel or CSV files, filter data in real-time, and explore dynamic insights through a variety of visualizations.
 
