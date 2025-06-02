@@ -8,7 +8,7 @@ warnings.filterwarnings("ignore")
 
 st.set_page_config(page_title="Superstore!", page_icon=":bar_chart:", layout="wide")
 
-st.title(":bar_chart: Sample Superstore Data")
+st.title(":bar_chart: Welcome to SuperstoreViz")
 st.markdown("<style>div.block-container{padding-top:2rem;}</style>", unsafe_allow_html=True)
 
 #File Uploading Phase 
@@ -18,7 +18,8 @@ if file_upload is not None:
     st.write(filename)
     df = pd.read_excel(filename)
 else:
-    os.chdir(r"E:\Python Interactive dashboard\Files")
+    # os.chdir(r"E:\Python Interactive dashboard\Files")
+    os.chdir(r"E:\SuperstoreViz\Files")
     df = pd.read_excel("Superstore.xls")
 
 #Main development Phase Starts here
